@@ -2,12 +2,17 @@ FROM debian:bookworm-slim
 
 # Install necessary linux packages
 RUN apt-get update && \
-    apt-get install --no-install-recommends --no-install-suggests -y \
+    apt install --no-install-recommends --no-install-suggests -y \
       git \
       git-lfs  \
       wget \
       ca-certificates \
-      lib32gcc-s1 && \
+      software-properties-common && \
+    dpkg --add-architecture i386 && \
+    apt update && \
+    apt install --no-install-recommends --no-install-suggests -y \
+      lib32gcc-s1 \
+      steamcmd && \
     apt-get clean
 
 # Steam user variables
