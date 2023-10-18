@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:bookworm-slim
 
 # Install necessary linux packages
 RUN apt-get update && \
@@ -7,9 +7,10 @@ RUN apt-get update && \
       git-lfs  \
       wget \
       ca-certificates \
-      lib32gcc1
+      lib32gcc-s1 && \
+    apt-get clean
 
-# Steam user variables  
+# Steam user variables
 ENV UID 1000
 ENV USER steam
 ENV HOME /home/$USER
