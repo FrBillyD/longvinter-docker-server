@@ -1,11 +1,5 @@
 FROM debian:bookworm-slim
 
-# Change repositories (add missing repos)
-RUN printf "deb https://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware"                    > /etc/apt/sources.list && \
-    printf "deb https://deb.debian.org/debian/ bookworm-updates main contrib non-free non-free-firmware"           >> /etc/apt/sources.list && \
-    printf "deb https://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list && \
-    printf "deb https://deb.debian.org/debian/ bookworm-backports main contrib non-free non-free-firmware"         >> /etc/apt/sources.list
-
 # Install necessary linux packages
 RUN apt-get update && \
     apt install --no-install-recommends --no-install-suggests -y \
@@ -14,8 +8,15 @@ RUN apt-get update && \
       wget \
       ca-certificates \
       software-properties-common && \
-    dpkg --add-architecture i386 && \
-    apt update && \
+    dpkg --add-architecture i386
+
+# Change repositories (add missing repos)
+RUN printf "deb https://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware"                    > /etc/apt/sources.list && \
+    printf "deb https://deb.debian.org/debian/ bookworm-updates main contrib non-free non-free-firmware"           >> /etc/apt/sources.list && \
+    printf "deb https://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list && \
+    printf "deb https://deb.debian.org/debian/ bookworm-backports main contrib non-free non-free-firmware"         >> /etc/apt/sources.list
+
+RUN apt update && \
     apt install --no-install-recommends --no-install-suggests -y \
       lib32gcc-s1 \
       steamcmd && \
