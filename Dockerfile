@@ -17,9 +17,8 @@ RUN printf "deb https://deb.debian.org/debian/ bookworm main contrib non-free no
     printf "deb https://deb.debian.org/debian/ bookworm-backports main contrib non-free non-free-firmware"         >> /etc/apt/sources.list
 
 RUN apt update && \
-    ACCEPT_EULA=Y apt install --no-install-recommends --no-install-suggests -y \
-      lib32gcc-s1 \
-      steamcmd && \
+    apt install --no-install-recommends --no-install-suggests -y \
+      lib32gcc-s1 && \
     apt-get clean
 
 # Steam user variables
